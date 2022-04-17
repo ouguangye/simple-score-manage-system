@@ -1,75 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Login</class>
- <widget class="QMainWindow" name="Login">
+ <class>Register</class>
+ <widget class="QMainWindow" name="Register">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>746</width>
-    <height>474</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Login</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>141</width>
-      <height>51</height>
+      <x>290</x>
+      <y>30</y>
+      <width>151</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>Login</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <string>Student registration</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="loginBtn">
+   <widget class="QPushButton" name="rigisterBtn">
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>300</y>
+      <y>380</y>
       <width>80</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Login</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="registeredBtn">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>340</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Register</string>
+     <string>Rigister</string>
     </property>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>120</y>
-      <width>271</width>
-      <height>141</height>
+      <y>130</y>
+      <width>321</width>
+      <height>221</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>ID：</string>
+        <string>ID:</string>
        </property>
       </widget>
      </item>
@@ -79,7 +63,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>password：</string>
+        <string>Name:</string>
        </property>
       </widget>
      </item>
@@ -89,7 +73,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>identity</string>
+        <string>Sex:</string>
        </property>
       </widget>
      </item>
@@ -97,20 +81,45 @@
       <widget class="QComboBox" name="comboBox">
        <item>
         <property name="text">
-         <string>Student</string>
+         <string>male</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Teacher</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Administrator</string>
+         <string>female</string>
         </property>
        </item>
       </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Entrance Age</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEdit_3"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Entrance Year</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEdit_4"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Class</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="lineEdit_5"/>
      </item>
     </layout>
    </widget>
@@ -120,7 +129,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>746</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
