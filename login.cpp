@@ -7,6 +7,7 @@ Login::Login(QWidget *parent)
     , ui(new Ui::Login)
 {
     ui->setupUi(this);
+
 }
 
 Login::~Login()
@@ -17,7 +18,14 @@ Login::~Login()
 
 void Login::on_loginBtn_clicked()
 {
-
+    QString id = ui->id->text();
+    int identify = ui->comboBox->currentIndex();
+    if(identify == 0){
+        if(dbHelp::getInstance()->isStudentInTableById(id)){
+            qDebug()<<"Login successfully";
+        }
+        else qDebug()<<"Login false";
+    }
 }
 
 void Login::on_registeredBtn_clicked()
