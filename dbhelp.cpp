@@ -9,6 +9,8 @@ dbHelp::dbHelp()
     createChoose();
     createCourse();
     createTeacher();
+
+    insertTeacher();
 }
 
 
@@ -97,7 +99,6 @@ void dbHelp::createChoose(){
     excuteHelp(createSql);
 }
 
-
 void dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString year,QString student_class){
     QString insertSql = QString("INSERT INTO Student (ID,Name,Sex,Entrance_Age,Entrance_Year,Class)\
                         Values ('%1','%2','%3',%4,'%5','%6');")
@@ -106,6 +107,14 @@ void dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString 
     queryTable(0);
 }
 
+void dbHelp::insertTeacher(){
+    QString s[] = {"insert OR IGNORE into teachers (ID, Name, Course) VALUES ('11111','mao','architecture');",
+                   "insert OR IGNORE into teachers (ID, Name, Course) VALUES ('22222','wang','database');",
+                   "insert OR IGNORE into teachers (ID, Name, Course) VALUES ('33333','yang','algorithm');"};
+    for(QString a:s){
+        excuteHelp(a);
+    }
+}
 
 void dbHelp::queryTable(int id){
     QSqlQuery sqlQuery;
@@ -120,14 +129,14 @@ void dbHelp::queryTable(int id){
             {
                 for(int i = 0;i<6;i++) qDebug()<<sqlQuery.value(i)<<" ";
             }
-            qDebug()<<endl;
+            qDebug()<<endl<<endl;
         }
     }
 }
 
-bool dbHelp::isStudentInTableById(QString id){
+bool dbHelp::isInTableById(QString table,QString id){
     QSqlQuery sqlQuery;
-    QString s = QString("select count(*) from student where ID= '%1';").arg(id);
+    QString s = QString("select count(*) from %1 where ID= '%2';").arg(table).arg(id);
     if(!sqlQuery.exec(s)){
         qDebug() << "Error: Fail to query table. " << sqlQuery.lastError();
     }
@@ -139,4 +148,12 @@ bool dbHelp::isStudentInTableById(QString id){
         }
     }
     return false;
+}
+
+bool dbHelp::isStudentInTableById(QString id){
+   return isInTableById("Student",id);
+}
+
+bool dbHelp::isTeacherInTableById(QString id){
+    return isInTableById("Teachers",id);
 }

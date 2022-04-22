@@ -18,12 +18,15 @@ private:
     void createChoose();
     void excuteHelp(QString);
     void successTip(QString);
+    void insertTeacher();
+    bool isInTableById(QString,QString);
 public:
     dbHelp();
     void quit();
     void insertStudent(QString, QString,QString,int,QString,QString);
     void queryTable(int id);
     bool isStudentInTableById(QString);
+    bool isTeacherInTableById(QString);
 public:
     static dbHelp* getInstance(){
         if(dbHelpInstance == nullptr){
