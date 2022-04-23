@@ -7,6 +7,8 @@ admin::admin(QWidget *parent) :
 {
     ui->setupUi(this);
     initMenu();
+    initStudentTable();
+    dbHelper = dbHelp::getInstance();
 }
 
 admin::~admin()
@@ -20,8 +22,7 @@ void admin::initMenu(){
     QAction *addStudent = new QAction(this);
     QAction *searchTeacher = new QAction(this);
 
-    addStudent->setText("添加学生信息");
-    searchTeacher->setText("修改学生信息");
+    addStudent->setText("学生信息");
 
     ui->menu->addAction(addStudent);
     ui->menu->addAction(searchTeacher);
@@ -37,7 +38,6 @@ void admin::initMenu(){
 
 
     connect(addStudent,SIGNAL(triggered()),signalMapper,SLOT(map()));
-    connect(searchTeacher,SIGNAL(triggered()),signalMapper,SLOT(map()));
     connect(info,SIGNAL(triggered()),signalMapper,SLOT(map()));
     connect(myCourse,SIGNAL(triggered()),signalMapper,SLOT(map()));
 
@@ -47,6 +47,34 @@ void admin::initMenu(){
     signalMapper->setMapping(myCourse,3);
 
     connect(signalMapper,SIGNAL(mapped(int)),this,SLOT(switchPage(int)));
+}
+
+void admin::initStudentTable(){
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    connect(ui->tableWidget,SIGNAL(cellClicked(int,int)),this,SLOT(tableClick(int,int)));
+    getStudentData();
+}
+
+void admin::getStudentData(){
+    QVector<QVector<QVariant>> list = dbHelper->queryTable(0);
+    if(list.empty()) return;
+    ui->tableWidget->setRowCount(list.length());
+    int i = 0;
+    for(auto l : list){
+        ui->tableWidget->setItem(i,0,new QTableWidgetItem(l[0].toString()));
+        ui->tableWidget->setItem(i,1,new QTableWidgetItem(l[1].toString()));
+        ui->tableWidget->setItem(i,2,new QTableWidgetItem(l[2].toString()));
+        ui->tableWidget->setItem(i,3,new QTableWidgetItem(l[3].toString()));
+        ui->tableWidget->setItem(i,4,new QTableWidgetItem(l[4].toString()));
+        ui->tableWidget->setItem(i,5,new QTableWidgetItem(l[5].toString()));
+        ui->tableWidget->setItem(i,6,new QTableWidgetItem(QIcon(QPixmap(":/icon/change.png")),"更改信息"));
+        ui->tableWidget->setItem(i,7,new QTableWidgetItem(QIcon(QPixmap(":/icon/delete.png")),"删除"));
+
+        ui->tableWidget->item(i,6)->setTextColor(QColor(46, 204, 113));
+        ui->tableWidget->item(i,7)->setTextColor(QColor(255, 71, 87));
+        i++;
+    }
 }
 
 void admin::switchPage(int index){
@@ -65,7 +93,7 @@ void admin::on_addStudentBtn_clicked()
     QString year = ui->year->text();
     QString student_class = ui->class_2->text();
     QString sex = ui->comboBox->currentIndex() == 0 ? "male":"female";
-    dbHelp::getInstance()->insertStudent(id,name,sex,age,year,student_class);
+    dbHelper->insertStudent(id,name,sex,age,year,student_class);
 }
 
 void admin::on_clear_clicked()
@@ -80,4 +108,17 @@ void admin::clearStudentForm(){
     ui->year->clear();
     ui->class_2->clear();
     ui->comboBox->setCurrentIndex(0);
+}
+
+void admin::tableClick(int row,int col){
+    if(col != 6 && col != 7) return;
+    QString id = ui->tableWidget->item(0,col)->text();
+    if(col == 6){
+
+
+    }
+    else{
+
+    }
+
 }

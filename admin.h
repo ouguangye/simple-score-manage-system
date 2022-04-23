@@ -23,12 +23,14 @@ private:
 private slots:
     void switchPage(int);
     void on_addStudentBtn_clicked();
-
     void on_clear_clicked();
+    void tableClick(int,int);
 
 private:
     void initMenu();
+    void initStudentTable();
     void clearStudentForm();
+    void getStudentData();
 };
 
 #endif // ADMIN_H
