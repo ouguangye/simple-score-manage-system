@@ -16,19 +16,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    admin.cpp \
     dbhelp.cpp \
     main.cpp \
     login.cpp \
-    register.cpp
+    register.cpp \
+    studentinfo.cpp
 
 HEADERS += \
+    admin.h \
     dbhelp.h \
     login.h \
-    register.h
+    register.h \
+    studentinfo.h
 
 FORMS += \
+    admin.ui \
     login.ui \
-    register.ui
+    register.ui \
+    studentinfo.ui
 
 QT += sql
 

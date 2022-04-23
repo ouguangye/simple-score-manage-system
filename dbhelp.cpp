@@ -104,7 +104,32 @@ void dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString 
                         Values ('%1','%2','%3',%4,'%5','%6');")
             .arg(id).arg(name).arg(sex).arg(age).arg(year).arg(student_class);
     excuteHelp(insertSql);
-    queryTable(0);
+    //queryTable(0);
+}
+
+void dbHelp::getStudentById(QString & id, QString &name, QString & sex, int & age, QString & year, QString &student_class){
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("SELECT * FROM student where ID = '%1'").arg(id)))
+    {
+        qDebug() << "Error: Fail to query table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        while(sqlQuery.next())
+        {
+            name = sqlQuery.value(1).toString();
+            sex = sqlQuery.value(2).toString();
+            age = sqlQuery.value(3).toInt();
+            year = sqlQuery.value(4).toString();
+            student_class = sqlQuery.value(5).toString();
+        }
+    }
+}
+
+void dbHelp::updateStudentById(QString & id, QString & name, QString & sex, int & age, QString &year, QString &student_class){
+    QString updateSql = QString("update student set Name = '%1', Sex = '%2', Entrance_Age = %3, Entrance_Year = '%4',Class ='%5' where ID = '%6';")
+            .arg(name).arg(sex).arg(age).arg(year).arg(student_class).arg(id);
+    excuteHelp(updateSql);
 }
 
 void dbHelp::insertTeacher(){

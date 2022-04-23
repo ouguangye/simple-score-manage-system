@@ -24,6 +24,8 @@ public:
     dbHelp();
     void quit();
     void insertStudent(QString, QString,QString,int,QString,QString);
+    void getStudentById(QString&, QString&,QString&,int&,QString&,QString&);
+    void updateStudentById(QString&, QString&,QString&,int&,QString&,QString&);
     void queryTable(int id);
     bool isStudentInTableById(QString);
     bool isTeacherInTableById(QString);

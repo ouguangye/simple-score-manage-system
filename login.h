@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "dbhelp.h"
+#include "studentinfo.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE

@@ -22,11 +22,13 @@ void Login::on_loginBtn_clicked()
     int identify = ui->comboBox->currentIndex();
     if(identify == 0){
         if(dbHelper->isStudentInTableById(id)){
-            qDebug()<<"Login successfully";
+            studentInfo* s = new studentInfo(nullptr,id);
+            s->show();
+            this->close();
         }
         else qDebug()<<"Login false";
     }
-    if(identify == 1){
+    else if(identify == 1){
         if(dbHelper->isTeacherInTableById(id)){
             qDebug()<<"Login successfully";
         }
