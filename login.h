@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "dbhelp.h"
 #include "studentinfo.h"
+#include "admin.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
@@ -19,9 +20,6 @@ public:
 
 private slots:
     void on_loginBtn_clicked();
-
-    void on_registeredBtn_clicked();
-
     void on_comboBox_currentIndexChanged(int index);
 
 private:

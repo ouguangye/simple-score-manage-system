@@ -6,6 +6,7 @@ admin::admin(QWidget *parent) :
     ui(new Ui::admin)
 {
     ui->setupUi(this);
+    initMenu();
 }
 
 admin::~admin()
@@ -16,13 +17,13 @@ admin::~admin()
 void admin::initMenu(){
     QSignalMapper *signalMapper = new QSignalMapper(this);
 
-    QAction *searchCourse = new QAction(this);
+    QAction *addStudent = new QAction(this);
     QAction *searchTeacher = new QAction(this);
 
-    searchCourse->setText("搜索学校课程");
-    searchTeacher->setText("搜索学校老师");
+    addStudent->setText("添加学生信息");
+    searchTeacher->setText("修改学生信息");
 
-    ui->menu->addAction(searchCourse);
+    ui->menu->addAction(addStudent);
     ui->menu->addAction(searchTeacher);
 
     QAction* info = new QAction(this);
@@ -35,12 +36,12 @@ void admin::initMenu(){
     ui->menu_2->addAction(myCourse);
 
 
-    connect(searchCourse,SIGNAL(triggered()),signalMapper,SLOT(map()));
+    connect(addStudent,SIGNAL(triggered()),signalMapper,SLOT(map()));
     connect(searchTeacher,SIGNAL(triggered()),signalMapper,SLOT(map()));
     connect(info,SIGNAL(triggered()),signalMapper,SLOT(map()));
     connect(myCourse,SIGNAL(triggered()),signalMapper,SLOT(map()));
 
-    signalMapper->setMapping(searchCourse,0);
+    signalMapper->setMapping(addStudent,0);
     signalMapper->setMapping(searchTeacher,1);
     signalMapper->setMapping(info,2);
     signalMapper->setMapping(myCourse,3);
@@ -53,4 +54,30 @@ void admin::switchPage(int index){
        ui->stackedWidget->setCurrentIndex(index);
        //initform();
    }
+}
+
+
+void admin::on_addStudentBtn_clicked()
+{
+    QString id = ui->id->text();
+    QString name = ui->name->text();
+    int age = ui->age->text().toInt();
+    QString year = ui->year->text();
+    QString student_class = ui->class_2->text();
+    QString sex = ui->comboBox->currentIndex() == 0 ? "male":"female";
+    dbHelp::getInstance()->insertStudent(id,name,sex,age,year,student_class);
+}
+
+void admin::on_clear_clicked()
+{
+    clearStudentForm();
+}
+
+void admin::clearStudentForm(){
+    ui->id->clear();
+    ui->name->clear();
+    ui->age->clear();
+    ui->year->clear();
+    ui->class_2->clear();
+    ui->comboBox->setCurrentIndex(0);
 }

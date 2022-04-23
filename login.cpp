@@ -36,25 +36,15 @@ void Login::on_loginBtn_clicked()
     }
     else{
         if(id == "12345"){
-            qDebug()<<"Login successfully";
+           admin* adminWindow = new admin;
+           adminWindow->show();
+           this->close();
         }
         else qDebug()<<"Login false";
     }
 }
 
-void Login::on_registeredBtn_clicked()
-{
-    Register* r = new Register;
-    r->show();
-    this->close();
-}
-
 void Login::on_comboBox_currentIndexChanged(int index)
 {
-    if(index == 0) {
-        ui->registeredBtn->setHidden(false);
-    }
-    else{
-        ui->registeredBtn->setHidden(true);
-    }
+
 }

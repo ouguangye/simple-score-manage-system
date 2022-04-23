@@ -20,20 +20,17 @@ SOURCES += \
     dbhelp.cpp \
     main.cpp \
     login.cpp \
-    register.cpp \
     studentinfo.cpp
 
 HEADERS += \
     admin.h \
     dbhelp.h \
     login.h \
-    register.h \
     studentinfo.h
 
 FORMS += \
     admin.ui \
     login.ui \
-    register.ui \
     studentinfo.ui
 
 QT += sql

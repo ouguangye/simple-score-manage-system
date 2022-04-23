@@ -22,9 +22,13 @@ private:
     dbHelp* dbHelper;
 private slots:
     void switchPage(int);
+    void on_addStudentBtn_clicked();
+
+    void on_clear_clicked();
 
 private:
     void initMenu();
+    void clearStudentForm();
 };
 
 #endif // ADMIN_H
