@@ -130,6 +130,11 @@ bool dbHelp::updateStudentById(QString & id, QString & name, QString & sex, int 
     return excuteHelp(updateSql);
 }
 
+bool dbHelp::deleteStudentById(QString id){
+    QString deleteSql = QString("delete from Student where ID = '%1'").arg(id);
+    return excuteHelp(deleteSql);
+}
+
 void dbHelp::insertTeacher(){
     QString s[] = {"insert OR IGNORE into teacher (ID, Name, Course) VALUES ('11111','mao','architecture');",
                    "insert OR IGNORE into teacher (ID, Name, Course) VALUES ('22222','wang','database');",

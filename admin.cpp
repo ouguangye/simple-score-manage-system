@@ -119,7 +119,13 @@ void admin::tableClick(int row,int col){
         w->show();
     }
     else{
-
+        QMessageBox::StandardButton result=QMessageBox::question(this, "Tips","确定删除该条数据吗?");
+        if(result == QMessageBox::Yes){
+            if(dbHelper->deleteStudentById(id)){
+                QMessageBox::information(this, "INFO","delete successfully!!!");
+                getStudentData();
+            }
+        }
     }
 
 }

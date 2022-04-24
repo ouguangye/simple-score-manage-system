@@ -26,6 +26,7 @@ public:
     bool insertStudent(QString, QString,QString,int,QString,QString);
     void getStudentById(QString&, QString&,QString&,int&,QString&,QString&);
     bool updateStudentById(QString&, QString&,QString&,int&,QString&,QString&);
+    bool deleteStudentById(QString);
     QVector<QVector<QVariant>> queryTable(int);
     bool isStudentInTableById(QString);
     bool isTeacherInTableById(QString);
