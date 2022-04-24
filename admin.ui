@@ -27,7 +27,25 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="page_2">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="title">
+          <property name="font">
+           <font>
+            <family>Blackadder ITC</family>
+            <pointsize>19</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Student Manager</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QTableWidget" name="tableWidget">
           <attribute name="horizontalHeaderCascadingSectionResizes">
@@ -38,166 +56,22 @@
           </attribute>
           <column>
            <property name="text">
-            <string>ID</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Sex</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Entrance Age</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Entrance Year</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Class</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string/>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string/>
            </property>
           </column>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="add">
+          <property name="text">
+           <string>ADD</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="addStudentPage">
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>230</x>
-          <y>90</y>
-          <width>321</width>
-          <height>221</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>ID:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="id"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Name:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="name"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Sex:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>male</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>female</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Entrance Age</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="age"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Entrance Year</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="year"/>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Class</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="class_2"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QPushButton" name="addStudentBtn">
-        <property name="geometry">
-         <rect>
-          <x>270</x>
-          <y>360</y>
-          <width>80</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>ADD</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="clear">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>360</y>
-          <width>80</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Clear</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>ADD</string>
-      </property>
+      <widget class="QWidget" name="addStudentPage"/>
+      <widget class="QWidget" name="page"/>
      </widget>
     </item>
    </layout>
@@ -213,16 +87,10 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>学生管理</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menu_2">
-    <property name="title">
-     <string>课程管理</string>
+     <string>管理</string>
     </property>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

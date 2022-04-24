@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     login.cpp \
     studentinfo.cpp \
+    updatecoursedialog.cpp \
     updatestudentdialog.cpp
 
 HEADERS += \
@@ -28,12 +29,14 @@ HEADERS += \
     dbhelp.h \
     login.h \
     studentinfo.h \
+    updatecoursedialog.h \
     updatestudentdialog.h
 
 FORMS += \
     admin.ui \
     login.ui \
     studentinfo.ui \
+    updatecoursedialog.ui \
     updatestudentdialog.ui
 
 QT += sql

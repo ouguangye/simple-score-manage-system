@@ -21,21 +21,22 @@ public:
 private:
     Ui::admin *ui;
     dbHelp* dbHelper;
+    int currentIndex = 0; //区分 是学生界面 还是 课程界面
 
 private slots:
-    void switchPage(int);
-    void on_addStudentBtn_clicked();
-    void on_clear_clicked();
+    void myAction(int);
     void tableClick(int,int);
     void getStudentData();
-
-    void on_pushButton_clicked();
+    void on_add_clicked();
 
 private:
     void initMenu();
+    void configTable();
+    void initTable();
     void initStudentTable();
+    void initCourseTable();
     void clearStudentForm();
-
+    QAction* addMenuAction(QString);
 };
 
 #endif // ADMIN_H

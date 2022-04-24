@@ -6,9 +6,10 @@ admin::admin(QWidget *parent) :
     ui(new Ui::admin)
 {
     ui->setupUi(this);
-    initMenu();
-    initStudentTable();
     dbHelper = dbHelp::getInstance();
+    initMenu();
+    configTable();
+    initTable();
 }
 
 admin::~admin()
@@ -18,42 +19,48 @@ admin::~admin()
 
 void admin::initMenu(){
     QSignalMapper *signalMapper = new QSignalMapper(this);
-
-    QAction *addStudent = new QAction(this);
-    QAction *searchTeacher = new QAction(this);
-
-    addStudent->setText("学生信息");
-
-    ui->menu->addAction(addStudent);
-    ui->menu->addAction(searchTeacher);
-
-    QAction* info = new QAction(this);
-    QAction* myCourse = new QAction(this);
-
-    info->setText("查看个人信息");
-    myCourse->setText("查看个人所选课程");
-
-    ui->menu_2->addAction(info);
-    ui->menu_2->addAction(myCourse);
-
-
-    connect(addStudent,SIGNAL(triggered()),signalMapper,SLOT(map()));
-    connect(info,SIGNAL(triggered()),signalMapper,SLOT(map()));
-    connect(myCourse,SIGNAL(triggered()),signalMapper,SLOT(map()));
-
-    signalMapper->setMapping(addStudent,0);
-    signalMapper->setMapping(searchTeacher,1);
-    signalMapper->setMapping(info,2);
-    signalMapper->setMapping(myCourse,3);
-
-    connect(signalMapper,SIGNAL(mapped(int)),this,SLOT(switchPage(int)));
+    QAction *manageStudent = addMenuAction("学生管理");
+    QAction* manageCourse = addMenuAction("课程管理");
+    signalMapper->setMapping(manageStudent,0);
+    signalMapper->setMapping(manageCourse,1);
+    connect(manageStudent,SIGNAL(triggered()),signalMapper,SLOT(map()));
+    connect(manageCourse,SIGNAL(triggered()),signalMapper,SLOT(map()));
+    connect(signalMapper,SIGNAL(mapped(int)),this,SLOT(myAction(int)));
 }
 
-void admin::initStudentTable(){
+QAction* admin::addMenuAction(QString s){
+    QAction *myAction = new QAction(this);
+    myAction->setText(s);
+    ui->menu->addAction(myAction);
+    return myAction;
+}
+
+void admin::configTable(){
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     connect(ui->tableWidget,SIGNAL(cellClicked(int,int)),this,SLOT(tableClick(int,int)));
+}
+
+void admin::initTable(){
+    ui->tableWidget->clear();
+    if(currentIndex == 0) initStudentTable();
+    else if(currentIndex == 1) initCourseTable();
+}
+
+void admin::initStudentTable(){
+    ui->tableWidget->setColumnCount(8);
+    ui->tableWidget->setHorizontalHeaderLabels(
+                QStringList() << "ID" << "Name" << "Sex"<<"Entrance Age"<<"Entrance Year"<<"Class"<<" "<<" "
+                );
     getStudentData();
+}
+
+void admin::initCourseTable(){
+    ui->tableWidget->setHorizontalHeaderLabels(
+                QStringList() << "ID" << "Name" << "Teacher ID"<<"Credit"<<"Grade"<<"Canceled Year"<<" "<<" "
+                );
+    ui->tableWidget->setColumnCount(8);
+
 }
 
 void admin::getStudentData(){
@@ -77,41 +84,15 @@ void admin::getStudentData(){
     }
 }
 
-void admin::switchPage(int index){
-   if(index == 2){
-       ui->stackedWidget->setCurrentIndex(index);
-       //initform();
-   }
+void admin::myAction(int index){
+    currentIndex = index;
+    initTable();
 }
 
-
-void admin::on_addStudentBtn_clicked()
-{
-    QString id = ui->id->text();
-    QString name = ui->name->text();
-    int age = ui->age->text().toInt();
-    QString year = ui->year->text();
-    QString student_class = ui->class_2->text();
-    QString sex = ui->comboBox->currentIndex() == 0 ? "male":"female";
-    dbHelper->insertStudent(id,name,sex,age,year,student_class);
-}
-
-void admin::on_clear_clicked()
-{
-    clearStudentForm();
-}
-
-void admin::clearStudentForm(){
-    ui->id->clear();
-    ui->name->clear();
-    ui->age->clear();
-    ui->year->clear();
-    ui->class_2->clear();
-    ui->comboBox->setCurrentIndex(0);
-}
 
 void admin::tableClick(int row,int col){
     if(col != 6 && col != 7) return;
+    if(ui->tableWidget->item(row,col) == nullptr) return;
     QString id = ui->tableWidget->item(row,0)->text();
     if(col == 6){
         updateStudentDialog* w = new updateStudentDialog(this,id);
@@ -130,7 +111,7 @@ void admin::tableClick(int row,int col){
 
 }
 
-void admin::on_pushButton_clicked()
+void admin::on_add_clicked()
 {
     updateStudentDialog* w = new updateStudentDialog(this);
     connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
