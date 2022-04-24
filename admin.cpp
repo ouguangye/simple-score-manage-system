@@ -112,13 +112,21 @@ void admin::clearStudentForm(){
 
 void admin::tableClick(int row,int col){
     if(col != 6 && col != 7) return;
-    QString id = ui->tableWidget->item(0,col)->text();
+    QString id = ui->tableWidget->item(row,0)->text();
     if(col == 6){
-
-
+        updateStudentDialog* w = new updateStudentDialog(this,id);
+        connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
+        w->show();
     }
     else{
 
     }
 
+}
+
+void admin::on_pushButton_clicked()
+{
+    updateStudentDialog* w = new updateStudentDialog(this);
+    connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
+    w->show();
 }

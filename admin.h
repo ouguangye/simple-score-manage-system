@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "QSignalMapper"
 #include "dbhelp.h"
+#include "updatestudentdialog.h"
 
 namespace Ui {
 class admin;
@@ -20,17 +21,21 @@ public:
 private:
     Ui::admin *ui;
     dbHelp* dbHelper;
+
 private slots:
     void switchPage(int);
     void on_addStudentBtn_clicked();
     void on_clear_clicked();
     void tableClick(int,int);
+    void getStudentData();
+
+    void on_pushButton_clicked();
 
 private:
     void initMenu();
     void initStudentTable();
     void clearStudentForm();
-    void getStudentData();
+
 };
 
 #endif // ADMIN_H

@@ -16,16 +16,16 @@ private:
     void createCourse();
     void createTeacher();
     void createChoose();
-    void excuteHelp(QString);
+    bool excuteHelp(QString);
     void successTip(QString);
     void insertTeacher();
     bool isInTableById(QString,QString);
 public:
     dbHelp();
     void quit();
-    void insertStudent(QString, QString,QString,int,QString,QString);
+    bool insertStudent(QString, QString,QString,int,QString,QString);
     void getStudentById(QString&, QString&,QString&,int&,QString&,QString&);
-    void updateStudentById(QString&, QString&,QString&,int&,QString&,QString&);
+    bool updateStudentById(QString&, QString&,QString&,int&,QString&,QString&);
     QVector<QVector<QVariant>> queryTable(int);
     bool isStudentInTableById(QString);
     bool isTeacherInTableById(QString);

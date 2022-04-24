@@ -45,16 +45,15 @@ void dbHelp::createDB(){
     }
 }
 
-void dbHelp::excuteHelp(QString s){
+bool dbHelp::excuteHelp(QString s){
     QSqlQuery sqlQuery;
-    if(!sqlQuery.exec(s))
-    {
+    if(!sqlQuery.exec(s)){
         qDebug() << "Error: Fail to excute. " << sqlQuery.lastError()<<endl;
         qDebug()<<s<<endl;
+        return false;
     }
-    else
-    {     qDebug() << "execute success";
-    }
+    qDebug() << "execute success";
+    return true;
 }
 
 void dbHelp::createStudent(){
@@ -99,11 +98,11 @@ void dbHelp::createChoose(){
     excuteHelp(createSql);
 }
 
-void dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString year,QString student_class){
+bool dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString year,QString student_class){
     QString insertSql = QString("INSERT INTO Student (ID,Name,Sex,Entrance_Age,Entrance_Year,Class)\
                         Values ('%1','%2','%3',%4,'%5','%6');")
             .arg(id).arg(name).arg(sex).arg(age).arg(year).arg(student_class);
-    excuteHelp(insertSql);
+    return excuteHelp(insertSql);
 }
 
 void dbHelp::getStudentById(QString & id, QString &name, QString & sex, int & age, QString & year, QString &student_class){
@@ -125,10 +124,10 @@ void dbHelp::getStudentById(QString & id, QString &name, QString & sex, int & ag
     }
 }
 
-void dbHelp::updateStudentById(QString & id, QString & name, QString & sex, int & age, QString &year, QString &student_class){
+bool dbHelp::updateStudentById(QString & id, QString & name, QString & sex, int & age, QString &year, QString &student_class){
     QString updateSql = QString("update student set Name = '%1', Sex = '%2', Entrance_Age = %3, Entrance_Year = '%4',Class ='%5' where ID = '%6';")
             .arg(name).arg(sex).arg(age).arg(year).arg(student_class).arg(id);
-    excuteHelp(updateSql);
+    return excuteHelp(updateSql);
 }
 
 void dbHelp::insertTeacher(){
