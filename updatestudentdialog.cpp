@@ -31,6 +31,7 @@ updateStudentDialog::~updateStudentDialog()
 }
 
 void updateStudentDialog::initform(){
+    if(type == 0) return;
     QString name = "", sex = "", year = "", student_class="";
     int age = 0;
     dbHelper->getStudentById(id,name,sex,age,year,student_class);
@@ -70,9 +71,4 @@ void updateStudentDialog::on_buttonBox_accepted()
         }
     }
     emit closeDialog();
-}
-
-void updateStudentDialog::on_buttonBox_rejected()
-{
-
 }

@@ -30,6 +30,12 @@ public:
     QVector<QVector<QVariant>> queryTable(int);
     bool isStudentInTableById(QString);
     bool isTeacherInTableById(QString);
+    bool insertCourse(QString,QString,QString,int,QString,QString);
+    bool insertCourse(QString,QString,QString,int,QString);
+    void getCourseById(QString&,QString&,QString&,int&,QString&,QString&);
+    bool updateCourseById(QString&,QString&,QString&,int&,QString&,QString&);
+    bool updateCourseById(QString&,QString&,QString&,int&,QString&);
+    bool deleteCourseById(QString);
 public:
     static dbHelp* getInstance(){
         if(dbHelpInstance == nullptr){

@@ -5,6 +5,7 @@
 #include "QSignalMapper"
 #include "dbhelp.h"
 #include "updatestudentdialog.h"
+#include "updatecoursedialog.h"
 
 namespace Ui {
 class admin;
@@ -27,6 +28,7 @@ private slots:
     void myAction(int);
     void tableClick(int,int);
     void getStudentData();
+    void getCourseData();
     void on_add_clicked();
 
 private:
@@ -36,6 +38,8 @@ private:
     void initStudentTable();
     void initCourseTable();
     void clearStudentForm();
+    void fillTable(QVector<QVector<QVariant>>&);
+    void initTitle();
     QAction* addMenuAction(QString);
 };
 

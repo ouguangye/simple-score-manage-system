@@ -24,7 +24,11 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="5" column="1">
-     <widget class="QLineEdit" name="class_2"/>
+     <widget class="QLineEdit" name="cancel_year">
+      <property name="placeholderText">
+       <string>can be null</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
@@ -41,7 +45,7 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QLineEdit" name="age"/>
+     <widget class="QLineEdit" name="credit"/>
     </item>
     <item row="5" column="0">
      <widget class="QLabel" name="label_7">
@@ -65,7 +69,7 @@
      </widget>
     </item>
     <item row="4" column="1">
-     <widget class="QLineEdit" name="year"/>
+     <widget class="QLineEdit" name="grade"/>
     </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_5">
@@ -85,7 +89,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit"/>
+     <widget class="QLineEdit" name="teacherID"/>
     </item>
    </layout>
   </widget>
@@ -113,8 +117,8 @@
     <rect>
      <x>160</x>
      <y>10</y>
-     <width>54</width>
-     <height>12</height>
+     <width>91</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">

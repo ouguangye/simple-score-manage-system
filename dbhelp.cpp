@@ -74,8 +74,8 @@ void dbHelp::createCourse(){
             Name varchar(20) not null,\
             TeacherID varchar(5) not null,\
             Credit INT not null,\
-            Grade INT not null,\
-            Canceled_Year varchar(20) not null\
+            Grade varchar(50) not null,\
+            Canceled_Year varchar(20)\
         );";
     excuteHelp(createSql);
 }
@@ -105,6 +105,18 @@ bool dbHelp::insertStudent(QString id, QString name,QString sex,int age,QString 
     return excuteHelp(insertSql);
 }
 
+bool dbHelp::insertCourse(QString id, QString name, QString teacherId, int credit, QString grade, QString cancel_year){
+    QString insertSql = QString("insert into Course (ID, Name, TeacherID, Credit, Grade, Canceled_Year) VALUES ('%1','%2','%3',%4,'%5','%6')")
+            .arg(id).arg(name).arg(teacherId).arg(credit).arg(grade).arg(cancel_year);
+    return excuteHelp(insertSql);
+}
+
+bool dbHelp::insertCourse(QString id, QString name, QString teacherId, int credit, QString grade){
+    QString insertSql = QString("insert into Course (ID, Name, TeacherID, Credit, Grade, Canceled_Year) VALUES ('%1','%2','%3',%4,'%5',null)")
+            .arg(id).arg(name).arg(teacherId).arg(credit).arg(grade);
+    return excuteHelp(insertSql);
+}
+
 void dbHelp::getStudentById(QString & id, QString &name, QString & sex, int & age, QString & year, QString &student_class){
     QSqlQuery sqlQuery;
     if(!sqlQuery.exec(QString("SELECT * FROM student where ID = '%1'").arg(id)))
@@ -124,14 +136,50 @@ void dbHelp::getStudentById(QString & id, QString &name, QString & sex, int & ag
     }
 }
 
+void dbHelp::getCourseById(QString & id, QString &name, QString & teacherId, int &credit, QString &grade, QString &cancel_year){
+    QSqlQuery sqlQuery;
+    if(!sqlQuery.exec(QString("SELECT * FROM Course where ID = '%1'").arg(id)))
+    {
+        qDebug() << "Error: Fail to query table. " << sqlQuery.lastError();
+    }
+    else
+    {
+        while(sqlQuery.next())
+        {
+           name = sqlQuery.value(1).toString();
+           teacherId = sqlQuery.value(2).toString();
+           credit = sqlQuery.value(3).toInt();
+           grade = sqlQuery.value(4).toString();
+           cancel_year = sqlQuery.value(5) == NULL ?"": sqlQuery.value(5).toString();
+        }
+    }
+}
+
 bool dbHelp::updateStudentById(QString & id, QString & name, QString & sex, int & age, QString &year, QString &student_class){
     QString updateSql = QString("update student set Name = '%1', Sex = '%2', Entrance_Age = %3, Entrance_Year = '%4',Class ='%5' where ID = '%6';")
             .arg(name).arg(sex).arg(age).arg(year).arg(student_class).arg(id);
     return excuteHelp(updateSql);
 }
 
+bool dbHelp::updateCourseById(QString & id, QString &name, QString & teacherId, int &credit, QString &grade, QString &cancel_year){
+    QString updateSql = QString("update Course set Name = '%1',TeacherID = '%2',Credit = %3,Grade = '%4',Canceled_Year='%5' where ID = '%6'")
+            .arg(name).arg(teacherId).arg(credit).arg(grade).arg(cancel_year).arg(id);
+    return excuteHelp(updateSql);
+}
+
+bool dbHelp::updateCourseById(QString & id, QString &name, QString & teacherId, int &credit, QString &grade){
+    QString updateSql = QString("update Course set Name = '%1',TeacherID = '%2',Credit = %3,Grade = '%4',Canceled_Year=null where ID = '%5'")
+            .arg(name).arg(teacherId).arg(credit).arg(grade).arg(id);
+    return excuteHelp(updateSql);
+}
+
 bool dbHelp::deleteStudentById(QString id){
     QString deleteSql = QString("delete from Student where ID = '%1'").arg(id);
+    return excuteHelp(deleteSql);
+}
+
+bool dbHelp::deleteCourseById(QString id){
+    QString deleteSql = QString("delete from Course where ID = '%1'").arg(id);
     return excuteHelp(deleteSql);
 }
 
@@ -147,6 +195,7 @@ void dbHelp::insertTeacher(){
 /*
  * 查询数据表
  * id = 0 查询 Student
+ * id = 1 查询 Course
 */
 QVector<QVector<QVariant>> dbHelp::queryTable(int id){
     QSqlQuery sqlQuery;
@@ -155,6 +204,10 @@ QVector<QVector<QVariant>> dbHelp::queryTable(int id){
     QString tableName = "";
     if(id == 0){
         tableName = "Student";
+        len = 6;
+    }
+    else if(id == 1){
+        tableName = "Course";
         len = 6;
     }
     if(!sqlQuery.exec("SELECT * FROM " + tableName))

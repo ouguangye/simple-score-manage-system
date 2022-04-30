@@ -7,6 +7,7 @@ admin::admin(QWidget *parent) :
 {
     ui->setupUi(this);
     dbHelper = dbHelp::getInstance();
+    initTitle();
     initMenu();
     configTable();
     initTable();
@@ -15,6 +16,15 @@ admin::admin(QWidget *parent) :
 admin::~admin()
 {
     delete ui;
+}
+
+void admin::initTitle(){
+    if(currentIndex == 0){
+        ui->title->setText("Student Manage");
+    }
+    else if(currentIndex == 1 ){
+        ui->title->setText("Course Manage");
+    }
 }
 
 void admin::initMenu(){
@@ -60,11 +70,10 @@ void admin::initCourseTable(){
                 QStringList() << "ID" << "Name" << "Teacher ID"<<"Credit"<<"Grade"<<"Canceled Year"<<" "<<" "
                 );
     ui->tableWidget->setColumnCount(8);
-
+    getCourseData();
 }
 
-void admin::getStudentData(){
-    QVector<QVector<QVariant>> list = dbHelper->queryTable(0);
+void admin::fillTable(QVector<QVector<QVariant> > & list){
     if(list.empty()) return;
     ui->tableWidget->setRowCount(list.length());
     int i = 0;
@@ -84,9 +93,20 @@ void admin::getStudentData(){
     }
 }
 
+void admin::getStudentData(){
+    QVector<QVector<QVariant>> list = dbHelper->queryTable(0);
+    fillTable(list);
+}
+
+void admin::getCourseData(){
+    QVector<QVector<QVariant>> list = dbHelper->queryTable(1);
+    fillTable(list);
+}
+
 void admin::myAction(int index){
     currentIndex = index;
     initTable();
+    initTitle();
 }
 
 
@@ -95,16 +115,31 @@ void admin::tableClick(int row,int col){
     if(ui->tableWidget->item(row,col) == nullptr) return;
     QString id = ui->tableWidget->item(row,0)->text();
     if(col == 6){
-        updateStudentDialog* w = new updateStudentDialog(this,id);
-        connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
-        w->show();
+        if(currentIndex == 0){
+            updateStudentDialog* w = new updateStudentDialog(this,id);
+            connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
+            w->show();
+        }
+        else{
+            updateCourseDialog* w = new updateCourseDialog(this,id);
+            connect(w,SIGNAL(closeDialog()),this,SLOT(getCourseData()));
+            w->show();
+        }
     }
     else{
         QMessageBox::StandardButton result=QMessageBox::question(this, "Tips","确定删除该条数据吗?");
         if(result == QMessageBox::Yes){
-            if(dbHelper->deleteStudentById(id)){
-                QMessageBox::information(this, "INFO","delete successfully!!!");
-                getStudentData();
+            if(currentIndex == 0){
+                if(dbHelper->deleteStudentById(id)){
+                    QMessageBox::information(this, "INFO","delete successfully!!!");
+                    getStudentData();
+                }
+            }
+            else{
+                if(dbHelper->deleteCourseById(id)){
+                    QMessageBox::information(this, "INFO","delete successfully!!!");
+                    getCourseData();
+                }
             }
         }
     }
@@ -113,7 +148,14 @@ void admin::tableClick(int row,int col){
 
 void admin::on_add_clicked()
 {
-    updateStudentDialog* w = new updateStudentDialog(this);
-    connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
-    w->show();
+    if(currentIndex == 0){
+        updateStudentDialog* w = new updateStudentDialog(this);
+        connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
+        w->show();
+    }
+    else if(currentIndex == 1){
+        updateCourseDialog* w = new updateCourseDialog(this);
+        connect(w,SIGNAL(closeDialog()),this,SLOT(getCourseData()));
+        w->show();
+    }
 }
