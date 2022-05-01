@@ -22,14 +22,14 @@ public:
 private:
     Ui::admin *ui;
     dbHelp* dbHelper;
-    int currentIndex = 0; //区分 是学生界面 还是 课程界面
+    int currentIndex = 0; // 0是学生，1是课程，2是选课
 
 private slots:
     void myAction(int);
     void tableClick(int,int);
     void getStudentData();
     void getCourseData();
-    void on_add_clicked();
+    void on_addBtn_clicked();
 
 private:
     void initMenu();
@@ -37,6 +37,7 @@ private:
     void initTable();
     void initStudentTable();
     void initCourseTable();
+    void initChooseTable();
     void clearStudentForm();
     void fillTable(QVector<QVector<QVariant>>&);
     void initTitle();

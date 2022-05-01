@@ -2,7 +2,7 @@
 #include "ui_updatestudentdialog.h"
 
 updateStudentDialog::updateStudentDialog(QWidget *parent,QString id) :
-    QDialog(parent),
+    QDialog(parent),form(id),
     ui(new Ui::updateStudentDialog)
 {
     ui->setupUi(this);
@@ -15,7 +15,7 @@ updateStudentDialog::updateStudentDialog(QWidget *parent,QString id) :
 }
 
 updateStudentDialog::updateStudentDialog(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent),form(),
     ui(new Ui::updateStudentDialog)
 {
     ui->setupUi(this);
@@ -52,8 +52,7 @@ void updateStudentDialog::setIdEditAble(){
     ui->id->setReadOnly(type == 1);
 }
 
-void updateStudentDialog::on_buttonBox_accepted()
-{
+void updateStudentDialog::confirm(){
     QString name = ui->name->text();
     QString sex = ui->comboBox->currentIndex() == 0 ? "male" : "female";
     QString year = ui->year->text();
@@ -70,5 +69,10 @@ void updateStudentDialog::on_buttonBox_accepted()
           QMessageBox::information(this, "INFO","Add successfully!!!");
         }
     }
+}
+
+void updateStudentDialog::on_buttonBox_accepted()
+{
+    confirm();
     emit closeDialog();
 }

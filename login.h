@@ -21,8 +21,9 @@ public:
 
 private slots:
     void on_loginBtn_clicked();
-    void switchPage(int);
     void getSearchInfo(QString);
+
+    void on_commandLinkButton_clicked();
 
 private:
     Ui::Login *ui;

@@ -19,10 +19,10 @@ SOURCES += \
     admin.cpp \
     csearchbox.cpp \
     dbhelp.cpp \
+    form.cpp \
     iconhelper.cpp \
     main.cpp \
     login.cpp \
-    studentinfo.cpp \
     updatecoursedialog.cpp \
     updatestudentdialog.cpp
 
@@ -30,16 +30,15 @@ HEADERS += \
     admin.h \
     csearchbox.h \
     dbhelp.h \
+    form.h \
     iconhelper.h \
     login.h \
-    studentinfo.h \
     updatecoursedialog.h \
     updatestudentdialog.h
 
 FORMS += \
     admin.ui \
     login.ui \
-    studentinfo.ui \
     updatecoursedialog.ui \
     updatestudentdialog.ui
 

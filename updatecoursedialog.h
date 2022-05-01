@@ -2,21 +2,24 @@
 #define UPDATECOURSEDIALOG_H
 
 #include <QDialog>
-#include "dbhelp.h"
 #include <QMessageBox>
+#include "dbhelp.h"
+#include "form.h"
 
 namespace Ui {
 class updateCourseDialog;
 }
 
-class updateCourseDialog : public QDialog
+class updateCourseDialog : public QDialog,public form
 {
     Q_OBJECT
 
 private:
-    void initform();
-    void initTitle();
-    void setIdEditAble();
+    void initform() override ;
+    void initTitle() override;
+    void setIdEditAble() override;
+    void confirm() override;
+
 
 public:
     explicit updateCourseDialog(QWidget *,QString);
@@ -28,14 +31,10 @@ signals:
 
 private slots:
     void on_buttonBox_accepted();
-
     void on_buttonBox_rejected();
 
 private:
     Ui::updateCourseDialog *ui;
-    dbHelp* dbHelper;
-    QString id;
-    int type; // 0 表示添加， 1表示更新
 };
 
 #endif // UPDATECOURSEDIALOG_H

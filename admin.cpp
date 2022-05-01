@@ -73,6 +73,14 @@ void admin::initCourseTable(){
     getCourseData();
 }
 
+void admin::initChooseTable(){
+    ui->table->setHorizontalHeaderLabels(
+                QStringList() << "StudentID" << "CourseID" << "TeacherID"<<"ChoosenYear"<<"Score"<<" "<<" "
+                );
+    ui->table->setColumnCount(7);
+    getCourseData();
+}
+
 void admin::fillTable(QVector<QVector<QVariant> > & list){
     if(list.empty()) return;
     ui->table->setRowCount(list.length());
@@ -146,16 +154,23 @@ void admin::tableClick(int row,int col){
 
 }
 
-void admin::on_add_clicked()
+
+
+void admin::on_addBtn_clicked()
 {
     if(currentIndex == 0){
+        //qDebug()<<"currentIndex: 0"<<endl;
         updateStudentDialog* w = new updateStudentDialog(this);
         connect(w,SIGNAL(closeDialog()),this,SLOT(getStudentData()));
         w->show();
     }
     else if(currentIndex == 1){
+        //qDebug()<<"currentIndex: 1"<<endl;
         updateCourseDialog* w = new updateCourseDialog(this);
         connect(w,SIGNAL(closeDialog()),this,SLOT(getCourseData()));
         w->show();
+    }
+    else{
+
     }
 }

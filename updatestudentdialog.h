@@ -4,19 +4,22 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "dbhelp.h"
+#include "form.h"
 
 namespace Ui {
 class updateStudentDialog;
 }
 
-class updateStudentDialog : public QDialog
+class updateStudentDialog : public QDialog,public form
 {
     Q_OBJECT
 
 private:
-    void initform();
-    void initTitle();
-    void setIdEditAble();
+    void initform() override ;
+    void initTitle() override;
+    void setIdEditAble() override;
+    void confirm() override;
+
 public:
     explicit updateStudentDialog(QWidget *,QString);
     explicit updateStudentDialog(QWidget*);
@@ -30,9 +33,6 @@ private slots:
 
 private:
     Ui::updateStudentDialog *ui;
-    dbHelp* dbHelper;
-    QString id;
-    int type; // 0 表示添加， 1表示更新
 };
 
 #endif // UPDATESTUDENTDIALOG_H

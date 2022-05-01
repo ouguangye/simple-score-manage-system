@@ -2,7 +2,7 @@
 #include "ui_updatecoursedialog.h"
 
 updateCourseDialog::updateCourseDialog(QWidget *parent,QString id) :
-    QDialog(parent),
+    QDialog(parent),form(id),
     ui(new Ui::updateCourseDialog)
 {
     ui->setupUi(this);
@@ -15,7 +15,7 @@ updateCourseDialog::updateCourseDialog(QWidget *parent,QString id) :
 }
 
 updateCourseDialog::updateCourseDialog(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent),form(),
     ui(new Ui::updateCourseDialog)
 {
     ui->setupUi(this);
@@ -52,8 +52,7 @@ void updateCourseDialog::setIdEditAble(){
     ui->id->setReadOnly(type == 1);
 }
 
-void updateCourseDialog::on_buttonBox_accepted()
-{
+void updateCourseDialog::confirm(){
     QString name = ui->name->text();
     QString teacherID = ui->teacherID->text();
     QString grade = ui->grade->text();
@@ -84,6 +83,11 @@ void updateCourseDialog::on_buttonBox_accepted()
             }
         }
     }
+}
+
+void updateCourseDialog::on_buttonBox_accepted()
+{
+    confirm();
     emit closeDialog();
     this->close();
 }

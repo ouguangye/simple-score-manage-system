@@ -90,12 +90,12 @@ void dbHelp::createTeacher(){
 }
 
 void dbHelp::createChoose(){
-    QString createSql = "CREATE TABLE IF NOT EXISTS choose(\
+    QString createSql = "CREATE TABLE IF NOT EXISTS Choose(\
             studentID varchar(10) not null,\
             courseID varchar(10) not null,\
             teacherID varchar(5) not null,\
             ChosenYear varchar(5) not null,\
-            Score int not null\
+            Score int\
         );";
     excuteHelp(createSql);
 }

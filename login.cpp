@@ -25,12 +25,14 @@ void Login::on_loginBtn_clicked()
     //int identify = ui->comboBox->currentIndex();
     QString identify = ui->comboBox->currentText();
     if(identify == "Student"){
+        /*
         if(dbHelper->isStudentInTableById(id)){
             studentInfo* s = new studentInfo(nullptr,id);
             s->show();
             this->close();
         }
         else qDebug()<<"Login false";
+        */
     }
     else if(identify == "Teacher"){
         if(dbHelper->isTeacherInTableById(id)){
@@ -48,12 +50,11 @@ void Login::on_loginBtn_clicked()
     }
 }
 
-void Login::switchPage(int index){
-   if(index == 2){
-       ui->stackedWidget->setCurrentIndex(index);
-   }
-}
-
 void Login::getSearchInfo(QString word){
     QMessageBox::information(this, "test", word);
+}
+
+void Login::on_commandLinkButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
 }
