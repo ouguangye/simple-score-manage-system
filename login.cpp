@@ -7,6 +7,10 @@ Login::Login(QWidget *parent)
 {
     ui->setupUi(this);
     dbHelper = dbHelp::getInstance();
+    ui->stackedWidget->setCurrentIndex(0);
+    CSearchBox *pSearchBtn = new CSearchBox(ui->stackedWidget->widget(0));
+    ui->head->addWidget(pSearchBtn);
+    connect(pSearchBtn, SIGNAL(sigSearch(QString)),this, SLOT(getSearchInfo(QString)));
 }
 
 Login::~Login()
@@ -18,8 +22,9 @@ Login::~Login()
 void Login::on_loginBtn_clicked()
 {
     QString id = ui->id->text();
-    int identify = ui->comboBox->currentIndex();
-    if(identify == 0){
+    //int identify = ui->comboBox->currentIndex();
+    QString identify = ui->comboBox->currentText();
+    if(identify == "Student"){
         if(dbHelper->isStudentInTableById(id)){
             studentInfo* s = new studentInfo(nullptr,id);
             s->show();
@@ -27,7 +32,7 @@ void Login::on_loginBtn_clicked()
         }
         else qDebug()<<"Login false";
     }
-    else if(identify == 1){
+    else if(identify == "Teacher"){
         if(dbHelper->isTeacherInTableById(id)){
             qDebug()<<"Login successfully";
         }
@@ -43,7 +48,12 @@ void Login::on_loginBtn_clicked()
     }
 }
 
-void Login::on_comboBox_currentIndexChanged(int index)
-{
+void Login::switchPage(int index){
+   if(index == 2){
+       ui->stackedWidget->setCurrentIndex(index);
+   }
+}
 
+void Login::getSearchInfo(QString word){
+    QMessageBox::information(this, "test", word);
 }

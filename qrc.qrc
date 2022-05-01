@@ -3,4 +3,7 @@
         <file>change.png</file>
         <file>delete.png</file>
     </qresource>
+    <qresource prefix="/image">
+        <file>fontawesome-webfont.ttf</file>
+    </qresource>
 </RCC>

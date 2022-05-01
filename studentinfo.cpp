@@ -9,6 +9,9 @@ studentInfo::studentInfo(QWidget *parent,QString id) :
     this->id = id;
     initMenu();
     ui->stackedWidget->setCurrentIndex(0);
+    CSearchBox *pSearchBtn = new CSearchBox(ui->stackedWidget->widget(0));
+    ui->headerLayout->addWidget(pSearchBtn);
+    connect(pSearchBtn, SIGNAL(sigSearch(QString)),this, SLOT(getSearchInfo(QString)));
     dbHelper = dbHelp::getInstance();
 }
 
@@ -55,28 +58,9 @@ void studentInfo::initMenu(){
 void studentInfo::switchPage(int index){
    if(index == 2){
        ui->stackedWidget->setCurrentIndex(index);
-       initform();
    }
 }
 
-void studentInfo::initform(){
-    QString name = "", sex = "", year = "", student_class="";
-    int age = 0;
-    dbHelper->getStudentById(id,name,sex,age,year,student_class);
-    ui->id_label->setText(id);
-    ui->year->setText(year);
-    ui->class_2->setText(student_class);
-    ui->comboBox->setCurrentIndex(sex == "female");
-    ui->name->setText(name);
-    ui->age->setText(QString::number(age));
-}
-
-void studentInfo::on_changeBtn_clicked()
-{
-    QString name = ui->name->text();
-    QString sex = ui->comboBox->currentIndex() == 0 ? "male" : "female";
-    QString year = ui->year->text();
-    QString student_class = ui->class_2->text();
-    int age = ui->age->text().toInt();
-    dbHelper->updateStudentById(id,name,sex,age,year,student_class);
+void studentInfo::getSearchInfo(QString word){
+    QMessageBox::information(this, "test", word);
 }

@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QSignalMapper>
+#include <QMessageBox>
 #include "dbhelp.h"
+#include "csearchbox.h"
 
 namespace Ui {
 class studentInfo;
@@ -14,15 +16,13 @@ class studentInfo : public QMainWindow
     Q_OBJECT
 private:
     void initMenu();
-    void initform();
 public:
     explicit studentInfo(QWidget *,QString);
     ~studentInfo();
 
 private slots:
     void switchPage(int);
-
-    void on_changeBtn_clicked();
+    void getSearchInfo(QString);
 
 private:
     Ui::studentInfo *ui;

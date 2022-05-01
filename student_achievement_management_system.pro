@@ -17,7 +17,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     admin.cpp \
+    csearchbox.cpp \
     dbhelp.cpp \
+    iconhelper.cpp \
     main.cpp \
     login.cpp \
     studentinfo.cpp \
@@ -26,7 +28,9 @@ SOURCES += \
 
 HEADERS += \
     admin.h \
+    csearchbox.h \
     dbhelp.h \
+    iconhelper.h \
     login.h \
     studentinfo.h \
     updatecoursedialog.h \

@@ -20,10 +20,10 @@ admin::~admin()
 
 void admin::initTitle(){
     if(currentIndex == 0){
-        ui->title->setText("Student Manage");
+        ui->titleLabel->setText("Student Manage");
     }
     else if(currentIndex == 1 ){
-        ui->title->setText("Course Manage");
+        ui->titleLabel->setText("Course Manage");
     }
 }
 
@@ -46,49 +46,49 @@ QAction* admin::addMenuAction(QString s){
 }
 
 void admin::configTable(){
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(ui->tableWidget,SIGNAL(cellClicked(int,int)),this,SLOT(tableClick(int,int)));
+    ui->table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    connect(ui->table,SIGNAL(cellClicked(int,int)),this,SLOT(tableClick(int,int)));
 }
 
 void admin::initTable(){
-    ui->tableWidget->clear();
+    ui->table->clear();
     if(currentIndex == 0) initStudentTable();
     else if(currentIndex == 1) initCourseTable();
 }
 
 void admin::initStudentTable(){
-    ui->tableWidget->setColumnCount(8);
-    ui->tableWidget->setHorizontalHeaderLabels(
+    ui->table->setColumnCount(8);
+    ui->table->setHorizontalHeaderLabels(
                 QStringList() << "ID" << "Name" << "Sex"<<"Entrance Age"<<"Entrance Year"<<"Class"<<" "<<" "
                 );
     getStudentData();
 }
 
 void admin::initCourseTable(){
-    ui->tableWidget->setHorizontalHeaderLabels(
+    ui->table->setHorizontalHeaderLabels(
                 QStringList() << "ID" << "Name" << "Teacher ID"<<"Credit"<<"Grade"<<"Canceled Year"<<" "<<" "
                 );
-    ui->tableWidget->setColumnCount(8);
+    ui->table->setColumnCount(8);
     getCourseData();
 }
 
 void admin::fillTable(QVector<QVector<QVariant> > & list){
     if(list.empty()) return;
-    ui->tableWidget->setRowCount(list.length());
+    ui->table->setRowCount(list.length());
     int i = 0;
     for(auto l : list){
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(l[0].toString()));
-        ui->tableWidget->setItem(i,1,new QTableWidgetItem(l[1].toString()));
-        ui->tableWidget->setItem(i,2,new QTableWidgetItem(l[2].toString()));
-        ui->tableWidget->setItem(i,3,new QTableWidgetItem(l[3].toString()));
-        ui->tableWidget->setItem(i,4,new QTableWidgetItem(l[4].toString()));
-        ui->tableWidget->setItem(i,5,new QTableWidgetItem(l[5].toString()));
-        ui->tableWidget->setItem(i,6,new QTableWidgetItem(QIcon(QPixmap(":/icon/change.png")),"更改信息"));
-        ui->tableWidget->setItem(i,7,new QTableWidgetItem(QIcon(QPixmap(":/icon/delete.png")),"删除"));
+        ui->table->setItem(i,0,new QTableWidgetItem(l[0].toString()));
+        ui->table->setItem(i,1,new QTableWidgetItem(l[1].toString()));
+        ui->table->setItem(i,2,new QTableWidgetItem(l[2].toString()));
+        ui->table->setItem(i,3,new QTableWidgetItem(l[3].toString()));
+        ui->table->setItem(i,4,new QTableWidgetItem(l[4].toString()));
+        ui->table->setItem(i,5,new QTableWidgetItem(l[5].toString()));
+        ui->table->setItem(i,6,new QTableWidgetItem(QIcon(QPixmap(":/icon/change.png")),"更改信息"));
+        ui->table->setItem(i,7,new QTableWidgetItem(QIcon(QPixmap(":/icon/delete.png")),"删除"));
 
-        ui->tableWidget->item(i,6)->setTextColor(QColor(46, 204, 113));
-        ui->tableWidget->item(i,7)->setTextColor(QColor(255, 71, 87));
+        ui->table->item(i,6)->setTextColor(QColor(46, 204, 113));
+        ui->table->item(i,7)->setTextColor(QColor(255, 71, 87));
         i++;
     }
 }
@@ -112,8 +112,8 @@ void admin::myAction(int index){
 
 void admin::tableClick(int row,int col){
     if(col != 6 && col != 7) return;
-    if(ui->tableWidget->item(row,col) == nullptr) return;
-    QString id = ui->tableWidget->item(row,0)->text();
+    if(ui->table->item(row,col) == nullptr) return;
+    QString id = ui->table->item(row,0)->text();
     if(col == 6){
         if(currentIndex == 0){
             updateStudentDialog* w = new updateStudentDialog(this,id);
